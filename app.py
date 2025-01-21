@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import requests
 import os
+from flask_cors import CORS  # Import CORS to handle cross-origin requests
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all domains (or specify specific domains if needed)
 
 # Simulated database of risky ingredients
 RISKY_INGREDIENTS = {
@@ -12,7 +14,6 @@ RISKY_INGREDIENTS = {
     "acrylamide": "Classified as a carcinogen, linked to increased cancer risk.",
     "monosodium glutamate": "Can cause headaches and other adverse reactions.",
     "salt": "Excessive consumption of salt can lead to high blood pressure, increased risk of heart disease, stroke, kidney disease, and headaches due to dehydration."
-
 }
 
 # Endpoint to get product information via barcode
@@ -86,5 +87,5 @@ def analyze_ingredients():
 
 # Start the server on 0.0.0.0 and dynamic port
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Use the dynamic port provided by Replit or default to 5000
+    port = int(os.environ.get('PORT', 5000))  # Use the dynamic port provided by Azure or default to 5000
     app.run(host='0.0.0.0', port=port, debug=True)
